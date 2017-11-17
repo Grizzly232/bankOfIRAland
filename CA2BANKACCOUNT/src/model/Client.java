@@ -9,6 +9,6 @@ package model;
  *
  * @author x00136708
  */
-public class SavingsAccount extends BankAccount {
+public class Client {
     
 }

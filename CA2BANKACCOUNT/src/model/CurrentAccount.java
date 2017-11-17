@@ -9,6 +9,11 @@ package model;
  *
  * @author x00136708
  */
-public class CurrentAccount {
+public class CurrentAccount extends BankAccount {
+    
+    @Override
+    public void withdraw(double amount){
+        
+    }
     
 }
