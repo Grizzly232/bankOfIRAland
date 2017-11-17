@@ -1,4 +1,4 @@
-## PROGRAM SPEC
+## PROGRAM SZPEC
 
 A bank account system. Clients and their personal information are stored on the system. A client is anyone who owns an account.
 Clients are stored entirely just to store information on people who own accounts.
