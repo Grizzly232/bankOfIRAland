@@ -1,4 +1,4 @@
 # bankOfIRAland
 
-## we wuz finna be software developers
+## we wuz finna be software developes
 
