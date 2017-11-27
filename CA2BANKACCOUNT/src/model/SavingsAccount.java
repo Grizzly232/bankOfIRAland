@@ -1,14 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+import javax.persistence.*;
 
-/**
- *
- * @author x00136708
- */
+@Entity
+@Table(name="SavingsAccount")
+@DiscriminatorValue(value="Savings")
+@SuppressWarnings("SerializableClass")
 public class SavingsAccount extends BankAccount {
     
+    int monthlyTransactions;
+    
+    @Override
+    public void withdraw(double amount) {
+        
+        if(monthlyTransactions >= 6) {
+            System.out.printf("Account %s has withdrawn %d times this month. No withdrawals remaining.", bid, monthlyTransactions);
+        } else {
+            balance -= amount;
+            System.out.printf("Withdrawal successful. %d withdrawals remaining.", monthlyTransactions);
+        }
+        monthlyTransactions++;
+    }
+    
+    @Override
+    public void deposit() {
+    
+    }
 }
