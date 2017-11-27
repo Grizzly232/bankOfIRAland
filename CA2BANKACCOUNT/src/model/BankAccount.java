@@ -1,25 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 import javax.persistence.*;
 import java.util.ArrayList;
 
-@Entity
-@Table(name="Accounts")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type")
-@SuppressWarnings("SerializableInterface")
+/**
+ *
+ * @author x00136708
+ */
 public abstract class BankAccount {
-    @Id
-    protected String bid;
-    protected ArrayList<String> holders;
-    protected int pin, lastWithdrawal, lastDeposit;
-    protected double balance;
-    
-    public abstract void withdraw(double amount);
-    
-    public abstract void deposit();
-    
-    public void changePin(int pin) {
-        this.pin = pin;
-        System.out.println("Pin successfully changed");
+    double balance;
+    int id;
+    ArrayList<Client> holders = new ArrayList(2);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+    public BankAccount(){
+        this.balance=0;
+        this.id=0;
     }
+    public BankAccount(double balance, int id){
+        this.balance=balance;
+        this.id=id;
+    }
+    public abstract void deposit(double amount);
+    public abstract void withdraw(double amount);
+        
+    
+    
 }
