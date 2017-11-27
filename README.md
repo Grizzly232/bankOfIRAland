@@ -3,8 +3,11 @@
 ## we wuz finna be software developes
 
 ##WHAT ELSE NEEDS TO BE DONE
+
 -randomly generating ids for security
+
 -table relationship mappings
+
 -bank account arraylist that updates every time a new bank account is added
 -withdraw and deposit methods for both accounts
 -dbOperations methods that show entire table
