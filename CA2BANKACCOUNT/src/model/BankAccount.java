@@ -1,32 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.List;
 
-/**
- *
- * @author x00136708
- */
+@Entity
+@Table(name = "BankAccount")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
+@SuppressWarnings("SerializableInterface")
 public abstract class BankAccount {
-    double balance;
-    int id;
-    ArrayList<Client> holders = new ArrayList(2);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-    public BankAccount(){
-        this.balance=0;
-        this.id=0;
+
+    @Id
+    Scanner in = new Scanner(System.in);
+    protected int bid;
+    protected ArrayList<String> holders;
+    protected int pin, lastWithdrawal, lastDeposit;
+    protected double balance;
+    
+    public int getAccountID(){
+        return bid; 
     }
-    public BankAccount(double balance, int id){
-        this.balance=balance;
-        this.id=id;
+    public List<Client> getClist(){
+        return clist;
     }
-    public abstract void deposit(double amount);
-    public abstract void withdraw(double amount);
-        
+    
+    public double getBalance(){
+        return balance;
+    }
     
     
+    public abstract double withdraw(double amount);
+
+    public abstract void deposit();
+
 }
