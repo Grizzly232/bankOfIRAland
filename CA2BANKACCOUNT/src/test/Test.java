@@ -5,12 +5,14 @@
  */
 package test;
 import java.util.Scanner;
+import model.dbOperations;
 
 /**
  *
  * @author x00136708
  */
 public class Test {
+    
     public static void main(String[] args) {
         int pin1=0;
         int pin=0;
@@ -42,7 +44,55 @@ public class Test {
                     }
                  
             }
+        
+
             
+
+    
+        
+        dbOperations db = new dbOperations();
+        while (true) {
+            System.out.println("Press 1 to view your information");
+            System.out.println("Press 2 to make a deposit");
+            System.out.println("Press 3 to make a withdrawal");
+            System.out.println("Please press 4 to quit");
+            
+            
+            
+            
+
+            int choice = in.nextInt();
+            in.nextLine();
+
+            switch (choice) {
+                case 1:
+                    
+                    db.viewClientInformation(cid);
+                    break;
+                case 2:
+                    System.out.println("Enter they amount to deposit");
+                    double depAmount = in.nextDouble();
+                    db.deposit(depAmount);
+                    break;
+                case 3:
+                    System.out.println("Enter the amount to withdraw");
+                    double withdrawAmount=in.nextDouble();
+                    dp.withdraw(withdrawAmount);
+                    break;
+                case 4:
+                    System.out.println("Please enter the employee id in order to view their projects");
+                    int eid = in.nextInt();
+                    in.nextLine();
+                    jpa.viewEmpProjects(eid);
+                    break;
+       
+            }
+        }
+
+    }
+
+}
+
 
         }
             else {
@@ -54,5 +104,7 @@ public class Test {
             guestMenu();
         }
     }
+   
+    
 }
 

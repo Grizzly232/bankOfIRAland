@@ -1,14 +1,19 @@
 package model;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="Clients")
 @SuppressWarnings("SerializableInterface")
 public class Client {
     @Id
+    @ManyToMany(mappedBy = "cList",cascade=CascadeType.PERSIST)
+    private List<BankAccount> bList = new ArrayList<>();
     private String cid;
     private String fname, lname, email, phone, address;
     private int age;
+   
     
 
     public Client(String cid, String fname, String lname, String email, String phone, String address, int age) {
