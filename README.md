@@ -6,7 +6,7 @@
 
 -randomly generating ids for security
 
--table relationship mappings
+-table relationship mappings (many to many shit)
 
 -bank account arraylist that updates every time a new bank account is added
 
