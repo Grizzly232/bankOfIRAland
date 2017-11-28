@@ -4,13 +4,17 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "Clients")
+@Table(name = "Client")
 @SuppressWarnings("SerializableInterface")
 public class Client {
 
     @Id
     private int cid;
-    private String fname, lname, email, phone, address;
+    private String fname;
+    private String lname; 
+    private String email;
+    private String phone;
+    private String address;
     private int age;
     static public ArrayList<Client> cList = new ArrayList();
     

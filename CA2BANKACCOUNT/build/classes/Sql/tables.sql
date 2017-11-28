@@ -26,14 +26,21 @@ create table SavingsAccount(
     monthlyTransactions number,
     lastTransaction date
 );
+
+drop table Client;
 create table Client(
     cid number primary key check (cid > 0 AND cid < 1000),
     fname VARCHAR2(255) NOT NULL,
     lname VARCHAR2(255) NOT NULL,
     email VARCHAR2(255),
+    phone VARCHAR2(255),
     address VARCHAR2(255) NOT NULL,
     age number NOT NULL
 );
+
+SELECT PHONE FROM Client;
+INSERT INTO Client VALUES (01, 'El Jeffe', 'of Rivia', 'jeffe@heffmail.net', '0877174918', 'the Bottom of the Fucking Ocean', 100);
+
 create table ClientAcc(
     bid number,
     cid number,

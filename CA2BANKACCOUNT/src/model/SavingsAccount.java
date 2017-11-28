@@ -9,6 +9,10 @@ public class SavingsAccount extends BankAccount {
     
     int monthlyTransactions;
     
+    public SavingsAccount() {
+        
+    }
+    
     @Override
     public void withdraw(double amount) {
         
@@ -22,7 +26,7 @@ public class SavingsAccount extends BankAccount {
     }
     
     @Override
-    public void deposit() {
+    public void deposit(double amount) {
     
     }
 }

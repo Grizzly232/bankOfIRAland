@@ -17,7 +17,8 @@ public class dbOperations {
         em.getTransaction().begin();
 
         //Select everything from Clients
-        TypedQuery<Client> query = em.createQuery("SELECT a FROM Client a", Client.class);
+        //TypedQuery<Client> query = em.createQuery("SELECT a FROM Client a", Client.class);
+        Query query = em.createNativeQuery("SELECT CID, ADDRESS, AGE, EMAIL, FNAME, LNAME, PHONE FROM Client", Client.class);
         List<Client> results = query.getResultList();
         if (results.isEmpty()) {
             System.out.println("No Clients Found");
