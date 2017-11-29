@@ -7,10 +7,11 @@ import java.util.List;
 @Table(name="Clients")
 @SuppressWarnings("SerializableInterface")
 public class Client {
-    @Id
+    
     @ManyToMany(mappedBy = "cList",cascade=CascadeType.PERSIST)
-    private List<BankAccount> bList = new ArrayList<>();
+    static private ArrayList<Client> cList = new ArrayList<>();
     private String cid;
+    @Id
     private String fname, lname, email, phone, address;
     private int age;
    
@@ -61,6 +62,19 @@ public class Client {
     public void setFname(String fname) {
         this.fname = fname;
     }
+      public void addAccount(Client c) {
+        if (!isDuplicate(c.getCid())) {
+            cList.add(c);
+        }
+    }
+       public boolean isDuplicate(String id) {
+        for (Client c : cList) {
+            if (c.getCid() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void setLname(String lname) {
         this.lname = lname;
@@ -81,5 +95,7 @@ public class Client {
     public void setAge(int age) {
         this.age = age;
     }
-    
+    static public ArrayList<Client> getClist(){
+        return cList;
+    }    
 }

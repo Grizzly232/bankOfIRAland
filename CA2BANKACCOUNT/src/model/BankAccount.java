@@ -13,12 +13,14 @@ import java.util.List;
 public class BankAccount {
 
     @Id
+    int monthlyTransactions;
     protected int bid;
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name="ClientAcc",
             joinColumns = @JoinColumn(name="bid"),
             inverseJoinColumns = @JoinColumn(name="cid"))
-    private List<Client> cList = new ArrayList<>();
+    
+    static public ArrayList<BankAccount> bList = new ArrayList<>();
     
          @Transient   
     Scanner in = new Scanner(System.in);
@@ -27,28 +29,65 @@ public class BankAccount {
     protected int pin, lastWithdrawal, lastDeposit;
     protected double balance;
 
-    public BankAccount(int bid, int lastWithdrawal, int lastDeposit, double balance) {
-        this.bid = bid;
+    public BankAccount(){
+        
+    }
+    
+     public BankAccount(int bid, int lastWithdrawal, int lastDeposit, double balance) {
+        this.bid = getLastID() + 1;
         this.lastWithdrawal = lastWithdrawal;
-        this.lastDeposit = lastDeposit;
-        this.balance = balance;
+        
+        addAccount(this);
+    }
+
+    public void addAccount(BankAccount b) {
+        if (!isDuplicate(b.getBid())) {
+            bList.add(b);
+        }
+    }
+        public int getLastID() {
+        return Client.getClist().size();
+    }
+        
+
+    public boolean isDuplicate(int id) {
+        for (BankAccount b : bList) {
+            if (b.getBid() == id) {
+                return true;
+            }
+        }
+        return false;
     }
     
     
     
-    public int getAccountID(){
+    public int getBid(){
         return bid; 
     }
-    public List<Client> getClist(){
-        return cList;
-    }
-    public void setcList(List<Client> cList){
-        this.cList=cList;
+    
+    public static ArrayList<BankAccount> getBlist(){
+        return bList;
     }
     
     public double getBalance(){
         return balance;
     }
+     public  void printBList() {
+        for(BankAccount b : bList) {
+            System.out.printf("------------------------------%n"
+                    + "BankAccount %d, %s %s%n"
+                    + "------------------------------", b.getBid());
+            System.out.println(b.toString());
+        }
+    }
+    
+    public String toString() {
+        return "\nAccount ID: " + bid + "\nLast Withdrawal: " + lastWithdrawal + "\nLast Deposit: " + lastDeposit + "\nBalance: " + balance;
+    }
+     public int getMontlyTransactions(){
+        return monthlyTransactions;
+    }
+    
     
     
   
