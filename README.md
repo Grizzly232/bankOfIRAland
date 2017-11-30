@@ -23,3 +23,5 @@
 -some big fancy drop tables method for admins
 
 -test class menus that use case switches
+
+-associative table with orphan deletion an' all
