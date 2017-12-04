@@ -2,7 +2,6 @@ package model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "Client")
@@ -24,11 +23,20 @@ public class Client {
     public String address;
     @Column(name = "age", nullable = false)
     public String age;
-    @Transient
+    @ManyToMany
+    @JoinTable(
+        name="ClientAcc"
+        , joinColumns={
+            @JoinColumn(name="cid")
+            }
+        , inverseJoinColumns={
+            @JoinColumn(name="bid")
+            }
+        )
     static ArrayList<Client> cList = new ArrayList();
     @Transient
     static int idCount = 0;
-
+    
     public Client() {
         
     }
@@ -42,7 +50,6 @@ public class Client {
         this.address = address;
         this.age = age;
         addClient(this);
-        //idCount++;
     }
 
     public void addClient(Client c) {

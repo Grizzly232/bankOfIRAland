@@ -17,7 +17,6 @@ public class dbOperations {
     public void init() {
         emf = Persistence.createEntityManagerFactory("CA2BANKACCOUNTPU");
         em = emf.createEntityManager();
-        System.out.println("find");
         model.Client.updateCList();
         Client c = new Client("bucko", "mcfucko", "mickmail", "0691896", "56", "5");
         em.getTransaction().begin();
@@ -89,17 +88,16 @@ public class dbOperations {
         Object toAdd = em.find(toQuery, 1);     //get an object of the class
         Field[] f = toQuery.getFields();    //get the variables of that class
         System.out.printf("Enter the following information for this %s: ", toQuery.getName());
-        Client c = new Client("");
-//        for (int i = 0; i < f.length; i++) {    //go through all of the variable names
-//            try {
-//                if (toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()) != null) {    //search the class and look for the setter associated with the current variable
-//                    System.out.println(f[i].getName() + ": ");
-//                    toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()).invoke(toAdd, input.nextLine());  //call the setter and let the user input the info
-//                }
-//            } catch (IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
-//                Logger.getLogger(dbOperations.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
+        for (int i = 0; i < f.length; i++) {    //go through all of the variable names
+            try {
+                if (toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()) != null) {    //search the class and look for the setter associated with the current variable
+                    System.out.println(f[i].getName() + ": ");
+                    toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()).invoke(toAdd, input.nextLine());  //call the setter and let the user input the info
+                }
+            } catch (IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(dbOperations.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         em.persist(toAdd);
         em.getTransaction().commit();
     }

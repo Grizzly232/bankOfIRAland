@@ -33,7 +33,7 @@ create sequence clientid increment by 1 start with 1;
 drop table Client;
 
 create table Client (
-    cid number(3) PRIMARY KEY,
+    cid NUMBER(3) PRIMARY KEY,
     fname VARCHAR2(255) NOT NULL,
     lname VARCHAR2(255) NOT NULL,
     email VARCHAR2(255),
@@ -51,9 +51,11 @@ SELECT * FROM Client ORDER BY cid;
 drop table ClientAcc;
 
 create table ClientAcc(
-    bid number,
-    cid number,
-    primary key(bid,cid),
-    foreign key(bid) references BankAccount(bid) on delete cascade,
-    foreign key(cid) references Client(cid) on delete cascade
+    bid NUMBER(3),
+    cid NUMBER(3),
+    PRIMARY KEY (bid,cid),
+    FOREIGN KEY(bid) REFERENCES BankAccount(bid) ON DELETE CASCADE,
+    FOREIGN KEY(cid) REFERENCES Client(cid) ON DELETE CASCADE
 );
+
+SELECT * FROM ClientAcc;

@@ -28,7 +28,9 @@ public abstract class BankAccount {
     @Column(name = "interestRate")
     protected double interestRate;
     
-    @Transient
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "cList")
+    @JoinTable(
+        name="ClientAcc", joinColumns = { @JoinColumn(name="bid") }, inverseJoinColumns = { @JoinColumn(name="cid") })
     static ArrayList<BankAccount> bList = new ArrayList<>();
     
     @Transient
