@@ -2,34 +2,38 @@ package model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Client")
 @SuppressWarnings("SerializableClass")
 public class Client {
 
-    @Id
+    @Id  @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "cid", nullable = false)
     int cid;
     @Column(name = "fname", nullable = false)
-    String fname;
+    public String fname;
     @Column(name = "lname", nullable = false)
-    String lname;
+    public String lname;
     @Column(name = "email")
-    String email;
+    public String email;
     @Column(name = "phone")
-    String phone;
+    public String phone;
     @Column(name = "address", nullable = false)
-    String address;
+    public String address;
     @Column(name = "age", nullable = false)
-    int age;
-    static public ArrayList<Client> cList = new ArrayList();
-    
-    public Client() {
-    
-    }
+    public String age;
+    @Transient
+    static ArrayList<Client> cList = new ArrayList();
+    @Transient
+    static int idCount = 0;
 
-    public Client(String fname, String lname, String email, String phone, String address, int age) {
+    public Client() {
+        
+    }
+    
+    public Client(String fname, String lname, String email, String phone, String address, String age) {
         this.cid = getLastID() + 1;
         this.fname = fname;
         this.lname = lname;
@@ -38,6 +42,7 @@ public class Client {
         this.address = address;
         this.age = age;
         addClient(this);
+        //idCount++;
     }
 
     public void addClient(Client c) {
@@ -50,7 +55,7 @@ public class Client {
         return cList.size();
     }
 
-    public boolean isDuplicate(int id) {
+    public static boolean isDuplicate(int id) {
         for(Client c : cList) {
             if (c.getCid() == id) {
                 return true;
@@ -63,55 +68,55 @@ public class Client {
         return cid;
     }
 
-    public String getFname() {
+    public String getfname() {
         return fname;
     }
 
-    public String getLname() {
+    public String getlname() {
         return lname;
     }
 
-    public String getEmail() {
+    public String getemail() {
         return email;
     }
 
-    public String getPhone() {
+    public String getphone() {
         return phone;
     }
 
-    public String getAddress() {
+    public String getaddress() {
         return address;
     }
 
-    public int getAge() {
+    public String getage() {
         return age;
     }
 
-    public void setCid(int cid) {
+    public void setcid(int cid) {
         this.cid = cid;
     }
 
-    public void setFname(String fname) {
+    public void setfname(String fname) {
         this.fname = fname;
     }
 
-    public void setLname(String lname) {
+    public void setlname(String lname) {
         this.lname = lname;
     }
 
-    public void setEmail(String email) {
+    public void setemail(String email) {
         this.email = email;
     }
 
-    public void setPhone(String phone) {
+    public void setphone(String phone) {
         this.phone = phone;
     }
 
-    public void setAddress(String address) {
+    public void setaddress(String address) {
         this.address = address;
     }
 
-    public void setAge(int age) {
+    public void setage(String age) {
         this.age = age;
     }
 
@@ -119,8 +124,14 @@ public class Client {
         for(Client c : cList) {
             System.out.printf("------------------------------%n"
                     + "Client %d, %s %s%n"
-                    + "------------------------------", c.getCid(), c.getFname(), c.getLname());
+                    + "------------------------------", c.getCid(), c.getfname(), c.getlname());
             System.out.println(c.toString());
+        }
+    }
+    
+    public static void updateCList() {
+        for(int i = 1; dbOperations.em.find(Client.class, i) != null; i++) {
+            cList.add(dbOperations.em.find(Client.class, i));
         }
     }
     

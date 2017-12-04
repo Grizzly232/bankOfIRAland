@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Date;
 
 @Entity
 @Table(name = "BankAccount")
@@ -13,14 +14,25 @@ import java.util.List;
 public abstract class BankAccount {
 
     @Id
-    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "bid", nullable=false)
     protected int bid;
-    protected int monthlyTransactions;
+    @Column(name = "pin", nullable=false)
+    protected int pin;
+    @Column(name = "lastWithdrawal")
+    protected int lastWithdrawal;
+    @Column(name = "lastDeposit")
+    protected int lastDeposit;
+    @Column(name = "balance", nullable=false)
+    protected double balance;
+    @Column(name = "interestRate")
+    protected double interestRate;
+    
+    @Transient
+    static ArrayList<BankAccount> bList = new ArrayList<>();
+    
     @Transient
     protected ArrayList<Client> holders;
-    protected int pin, lastWithdrawal, lastDeposit;
-    protected double balance, interestRate;
-    static public ArrayList<BankAccount> bList = new ArrayList<>();
 
     public BankAccount() {
 
@@ -35,9 +47,7 @@ public abstract class BankAccount {
     }
 
     public void addAccount(BankAccount b) {
-
         bList.add(b);
-
     }
 
     public int getLastID() {
@@ -81,10 +91,6 @@ public abstract class BankAccount {
     @Override
     public String toString() {
         return "\nAccount ID: " + bid + "\nLast Withdrawal: " + lastWithdrawal + "\nLast Deposit: " + lastDeposit + "\nBalance: " + balance + "\nInterest Rate: " + interestRate;
-    }
-
-    public int getMontlyTransactions() {
-        return monthlyTransactions;
     }
 
     public abstract void withdraw(double amount);

@@ -4,45 +4,51 @@ drop table SavingsAccount;
 drop table Client;
 drop table ClientAcc;
 
-drop sequence clientid;
-create sequence clientid increment by 1 start with 1;
+
+drop sequence bankid;
+create sequence bankid increment by 1 start with 1;
+
+drop table BankAccount;
 
 create table BankAccount(
-    bid number primary key check(bid>0 and bid<1000),
-    balance float(3) 
+    bid NUMBER(3) PRIMARY KEY,
+    pin NUMBER(4) NOT NULL,
+    type VARCHAR2(255) NOT NULL,
+    lastWithdrawal DATE,
+    lastDeposit DATE,
+    balance NUMBER(10) NOT NULL,
+    interestRate NUMBER(3),
+    monthlyTransactions NUMBER(2)
 );
 
+INSERT INTO BankAccount VALUES (bankid.nextval, 0451, 'Current', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 25000.00, 0.2, null);
+INSERT INTO BankAccount VALUES (bankid.nextval, 9999, 'Savings', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 10.50, 0.05, 5);
+INSERT INTO BankAccount VALUES (bankid.nextval, 0214, 'Current', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 250.00, 0.2, null);
+INSERT INTO BankAccount VALUES (bankid.nextval, 0101, 'Savings', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 1200.50, 0.02, 3);
 
-create table CurrentAccount(
-    caid number(3) primary key,
-    interestRate float(3),
-    lastTransaction date;
-);
+SELECT * FROM BankAccount;
 
-
-create table SavingsAccount(
-    said number primary key,
-    interestRate number, 
-    monthlyTransactions number,
-    lastTransaction date
-);
-
+drop sequence clientid;
+create sequence clientid increment by 1 start with 1;
 drop table Client;
 
 create table Client (
-    cid number primary key check (cid > 0 AND cid < 1000),
+    cid number(3) PRIMARY KEY,
     fname VARCHAR2(255) NOT NULL,
     lname VARCHAR2(255) NOT NULL,
     email VARCHAR2(255),
     phone VARCHAR2(255),
-    address VARCHAR(255) NOT NULL,
-    age number NOT NULL
+    address VARCHAR2(255) NOT NULL,
+    age VARCHAR2(3) NOT NULL
 );
 
-INSERT INTO Client VALUES (01, 'Spurdo', 'Komurdo', 'spurko@spudmail.net', 06919895, '25 P. Sherman', 20);
-INSERT INTO Client VALUES (02, 'Putch', 'Downer', 'putchyboy01@putchmail.com', 0610594, '26 P. Sherman', 40);
-INSERT INTO Client VALUES (03, 'Buck', 'Chumply', 'chuckbumply@gmail.com', 911, 'The Collective', 70);
-SELECT CID, address, age, email, fname, lname, phone FROM Client
+INSERT INTO Client VALUES (clientid.nextval, 'Spurdo', 'Komurdo', 'spurko@spudmail.net', 06919895, '25 P. Sherman', 20);
+INSERT INTO Client VALUES (clientid.nextval, 'Putch', 'Downer', 'putchyboy01@putchmail.com', 0610594, '26 P. Sherman', 40);
+INSERT INTO Client VALUES (clientid.nextval, 'Buck', 'Chumply', 'chuckbumply@gmail.com', 911, 'The Collective', 70);
+
+SELECT * FROM Client ORDER BY cid;
+
+drop table ClientAcc;
 
 create table ClientAcc(
     bid number,

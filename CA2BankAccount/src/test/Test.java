@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test;
 import java.util.Scanner;
 import model.*;
 
-/**
- *
- * @author x00136708
- */
 public class Test {
-    static String[] tableNames = {"Client", "CurrentAccount", "SavingsAccount", "ClientAcc"};
+    static String[] tableNames = {"Client", "BankAccount", "ClientAcc"};
     public static void main(String[] args) {
 
 //        BankAccount b1 = new SavingsAccount(5198, 20104, 1800.50, 0.2, 5);
@@ -21,11 +12,12 @@ public class Test {
 //        BankAccount b4 = new CurrentAccount(1660, 120, 6040.00, 0.01);
 //
 //        BankAccount.printBList();
-        dbOperations db = new dbOperations();
+        model.dbOperations db = new model.dbOperations();
         db.init();
-        db.deleteFrom(tableNames[0], "fname");
-        db.em.close();
-        db.emf.close();
+        
+//        db.view(tableNames[1]);
+//        db.em.close();
+//        db.emf.close();
         //db.viewTable(tableNames[0], 32);
         /*int pin1=0;
         int pin=0;
