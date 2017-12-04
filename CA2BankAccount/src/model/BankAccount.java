@@ -13,23 +13,22 @@ import java.util.List;
 public abstract class BankAccount {
 
     @Id
-    @Column(name = "bid")
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "bid", nullable=false)
     protected int bid;
-    @Column(name = "monthly_transactions")
-    protected int monthlyTransactions;
-    @Column(name = "pin")
+    @Column(name = "pin", nullable=false)
     protected int pin;
-    @Column(name = "last_withdrawal")
+    @Column(name = "lastWithdrawal")
     protected int lastWithdrawal;
-    @Column(name = "last_deposit")
+    @Column(name = "lastDeposit")
     protected int lastDeposit;
-    @Column(name = "balance")
+    @Column(name = "balance", nullable=false)
     protected double balance;
-    @Column(name = "interest")
+    @Column(name = "interestRate")
     protected double interestRate;
     
     @Transient
-    static public ArrayList<BankAccount> bList = new ArrayList<>();
+    static ArrayList<BankAccount> bList = new ArrayList<>();
     
     @Transient
     protected ArrayList<Client> holders;
@@ -93,10 +92,6 @@ public abstract class BankAccount {
     @Override
     public String toString() {
         return "\nAccount ID: " + bid + "\nLast Withdrawal: " + lastWithdrawal + "\nLast Deposit: " + lastDeposit + "\nBalance: " + balance + "\nInterest Rate: " + interestRate;
-    }
-
-    public int getMontlyTransactions() {
-        return monthlyTransactions;
     }
 
     public abstract void withdraw(double amount);

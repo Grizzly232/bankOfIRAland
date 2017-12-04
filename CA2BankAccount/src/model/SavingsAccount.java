@@ -7,6 +7,7 @@ import javax.persistence.*;
 @SuppressWarnings("SerializableClass")
 public class SavingsAccount extends BankAccount {
     
+    @Column(name = "monthlyTransactions")
     int monthlyTransactions;
     
     public SavingsAccount() {
@@ -36,10 +37,56 @@ public class SavingsAccount extends BankAccount {
     
     }
 
+    public int getMonthlyTransactions() {
+        return monthlyTransactions;
+    }
+
+    public void setMonthlyTransactions(int monthlyTransactions) {
+        this.monthlyTransactions = monthlyTransactions;
+    }
+
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
+    public int getPin() {
+        return pin;
+    }
+
+    public void setPin(int pin) {
+        this.pin = pin;
+    }
+
+    public int getLastWithdrawal() {
+        return lastWithdrawal;
+    }
+
+    public void setLastWithdrawal(int lastWithdrawal) {
+        this.lastWithdrawal = lastWithdrawal;
+    }
+
+    public int getLastDeposit() {
+        return lastDeposit;
+    }
+
+    public void setLastDeposit(int lastDeposit) {
+        this.lastDeposit = lastDeposit;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
+    }
+    
     @Override
     public String toString() {
         return super.toString() + "\nMonthly Transactions: " + monthlyTransactions;
     }
-    
-    
 }

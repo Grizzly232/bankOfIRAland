@@ -7,7 +7,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
 public class dbOperations {
 
@@ -20,11 +19,12 @@ public class dbOperations {
         em = emf.createEntityManager();
     }
 
-    public void viewTable(String table) {
+    public void view(String table) {
         //Select everything from Clients
-        List<Client> results = em.createQuery("SELECT a FROM " + table + " a").getResultList();
+        //Class toView = resolveClassname(table);
+        List results = em.createQuery("SELECT a FROM " + table + " a").getResultList();
         if (results.isEmpty()) {
-            System.out.println("No Clients Found");
+            System.out.println("No " + table + "s Found");
         } else {
             for (int i = 0; i < results.size(); i++) {
                 System.out.println(results.get(i).toString());
@@ -66,16 +66,8 @@ public class dbOperations {
         Class toQuery = resolveClassname(table);
         Object toUpdate = new Object();
         try {
-            Field f = toQuery.getField(column);
-            if (obj instanceof Integer) {
-                toUpdate = em.find(toQuery, obj);
-                Method m = toUpdate.getClass().getMethod("set" + column, Integer.class);
-                m.invoke(toUpdate, change);
-            } else if (obj instanceof String) {
-                toUpdate = getReferenceTo(table, column, obj);
-                Method m = toUpdate.getClass().getMethod("set" + column, String.class);
-                m.invoke(toUpdate, change);
-            }
+            Field colType = toQuery.getDeclaredField(column);
+            toQuery.getDeclaredMethod("set" + column, colType.getType()).invoke(toUpdate, change);
             em.merge(toUpdate);
         } catch (NoSuchFieldException | InvocationTargetException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException ex) {
             Logger.getLogger(dbOperations.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,15 +78,15 @@ public class dbOperations {
 
     public void add(String table) {
         em.getTransaction().begin();
-        Class toQuery = resolveClassname(table);
-        Object toAdd = em.find(toQuery, 1);
-        Field[] f = toQuery.getFields();
+        Class toQuery = resolveClassname(table);    //get the tablename entered as a class
+        Object toAdd = em.find(toQuery, 1);     //get an object of the class
+        Field[] f = toQuery.getFields();    //get the variables of that class
         System.out.printf("Enter the following information for this %s: ", toQuery.getName());
-        for (int i = 0; i < f.length; i++) {
+        for (int i = 0; i < f.length; i++) {    //go through all of the variable names
             try {
-                if (toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()) != null) {
+                if (toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()) != null) {    //search the class and look for the setter associated with the current variable
                     System.out.println(f[i].getName() + ": ");
-                    toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()).invoke(toAdd, input.nextLine());
+                    toQuery.getDeclaredMethod("set" + f[i].getName(), f[i].getType()).invoke(toAdd, input.nextLine());  //call the setter and let the user input the info
                 }
             } catch (IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
                 Logger.getLogger(dbOperations.class.getName()).log(Level.SEVERE, null, ex);

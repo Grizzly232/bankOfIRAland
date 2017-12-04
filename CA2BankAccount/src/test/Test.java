@@ -3,7 +3,7 @@ import java.util.Scanner;
 import model.*;
 
 public class Test {
-    static String[] tableNames = {"Client", "BankAccount", "CurrentAccount", "SavingsAccount", "ClientAcc"};
+    static String[] tableNames = {"Client", "BankAccount", "ClientAcc"};
     public static void main(String[] args) {
 
 //        BankAccount b1 = new SavingsAccount(5198, 20104, 1800.50, 0.2, 5);
@@ -14,8 +14,7 @@ public class Test {
 //        BankAccount.printBList();
         model.dbOperations db = new model.dbOperations();
         db.init();
-        //db.deleteFrom(tableNames[0], "lname", "Komurdo");
-        db.add(tableNames[0]);
+        db.view(tableNames[1]);
         db.em.close();
         db.emf.close();
         //db.viewTable(tableNames[0], 32);

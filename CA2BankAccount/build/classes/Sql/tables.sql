@@ -10,29 +10,27 @@ create sequence clientid increment by 1 start with 1;
 drop table BankAccount;
 
 create table BankAccount(
-    bid
+    bid NUMBER(3) PRIMARY KEY,
+    pin NUMBER(4) NOT NULL,
+    type VARCHAR2(255) NOT NULL,
+    lastWithdrawal DATE,
+    lastDeposit DATE,
+    balance NUMBER(10) NOT NULL,
+    interestRate NUMBER(3),
+    monthlyTransactions NUMBER(2)
 );
 
-drop table CurrentAccount;
+INSERT INTO BankAccount VALUES (001, 0451, 'Current', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 25000.00, 0.2, null);
+INSERT INTO BankAccount VALUES (002, 9999, 'Savings', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 10.50, 0.05, 5);
+INSERT INTO BankAccount VALUES (003, 0214, 'Current', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 250.00, 0.2, null);
+INSERT INTO BankAccount VALUES (004, 0101, 'Savings', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 1200.50, 0.02, 3);
 
-create table CurrentAccount(
-    caid number(3) primary key,
-    interestRate float(3),
-    lastTransaction date;
-);
-
-
-create table SavingsAccount(
-    said number primary key,
-    interestRate number, 
-    monthlyTransactions number,
-    lastTransaction date
-);
+SELECT * FROM BankAccount;
 
 drop table Client;
 
 create table Client (
-    cid number primary key check (cid > 0 AND cid < 1000),
+    cid number(3) PRIMARY KEY,
     fname VARCHAR2(255) NOT NULL,
     lname VARCHAR2(255) NOT NULL,
     email VARCHAR2(255),
@@ -47,6 +45,8 @@ INSERT INTO Client VALUES (03, 'Buck', 'Chumply', 'chuckbumply@gmail.com', 911, 
 SELECT CID, address, age, email, fname, lname, phone FROM Client
 
 SELECT * FROM Client;
+
+drop table ClientAcc;
 
 create table ClientAcc(
     bid number,
