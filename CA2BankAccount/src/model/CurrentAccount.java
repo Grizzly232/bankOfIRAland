@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 @Table(name="CurrentAccount")
@@ -12,7 +13,7 @@ public class CurrentAccount extends BankAccount {
         
     }
     
-    public CurrentAccount(int pin, int lastWithdrawal, int lastDeposit, double balance, double interestRate) {
+    public CurrentAccount(int pin, Calendar lastWithdrawal, Calendar lastDeposit, double balance, double interestRate) {
         super(lastWithdrawal, lastDeposit, balance, interestRate);
         addAccount(this);
     }
@@ -24,7 +25,7 @@ public class CurrentAccount extends BankAccount {
     
     @Override
     public void deposit(double amount) {
-    
+        
     }
 
     public void setBid(int bid) {

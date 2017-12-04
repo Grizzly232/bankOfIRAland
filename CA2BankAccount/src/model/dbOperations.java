@@ -7,6 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 
 public class dbOperations {
 
@@ -18,11 +19,16 @@ public class dbOperations {
         emf = Persistence.createEntityManagerFactory("CA2BANKACCOUNTPU");
         em = emf.createEntityManager();
         model.Client.updateCList();
-        Client c = new Client("bucko", "mcfucko", "mickmail", "0691896", "56", "5");
-        em.getTransaction().begin();
-        
-        em.persist(c);
-        em.getTransaction().commit();
+//        Client c = new Client("bucko", "mcfucko", "mickmail", "0691896", "56", "5");
+//        Calendar dob = Calendar.getInstance();
+//        dob.set(2016, 0, 13);
+//        Calendar dob1 = Calendar.getInstance();
+//        dob.set(2017, 1, 05);
+//        BankAccount b = new CurrentAccount(5012, dob, dob1, 5000.00, 0.02);
+//        em.getTransaction().begin();
+//        
+//        em.persist(b);
+//        em.getTransaction().commit();
     }
 
     public void view(String table) {
@@ -106,7 +112,6 @@ public class dbOperations {
         try {
             Class classType = Class.forName("model." + table); //Class.forName returns a class with the same name as the string passed to it
             return classType;
-
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(dbOperations.class
                     .getName()).log(Level.SEVERE, null, ex);

@@ -12,7 +12,7 @@ drop table BankAccount;
 
 create table BankAccount(
     bid NUMBER(3) PRIMARY KEY,
-    pin NUMBER(4) NOT NULL,
+    pin VARCHAR(4) NOT NULL,
     type VARCHAR2(255) NOT NULL,
     lastWithdrawal DATE,
     lastDeposit DATE,
@@ -21,10 +21,10 @@ create table BankAccount(
     monthlyTransactions NUMBER(2)
 );
 
-INSERT INTO BankAccount VALUES (bankid.nextval, 0451, 'Current', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 25000.00, 0.2, null);
-INSERT INTO BankAccount VALUES (bankid.nextval, 9999, 'Savings', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 10.50, 0.05, 5);
-INSERT INTO BankAccount VALUES (bankid.nextval, 0214, 'Current', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 250.00, 0.2, null);
-INSERT INTO BankAccount VALUES (bankid.nextval, 0101, 'Savings', TO_DATE('17/12/2015', 'DD/MM/YYYY'), TO_DATE('17/12/2015', 'DD/MM/YYYY'), 1200.50, 0.02, 3);
+INSERT INTO BankAccount VALUES (bankid.nextval, '0451', 'Current', '06-JAN-2017', '13-OCT-98', 25000.00, 0.2, null);
+INSERT INTO BankAccount VALUES (bankid.nextval, '9999', 'Savings', '06-JAN-2017', '13-OCT-98', 10.50, 0.05, 5);
+INSERT INTO BankAccount VALUES (bankid.nextval, '0214', 'Current', , 250.00, 0.2, null);
+INSERT INTO BankAccount VALUES (bankid.nextval, '0101', 'Savings', , 1200.50, 0.02, 3);
 
 SELECT * FROM BankAccount;
 

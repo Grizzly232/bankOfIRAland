@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
-import java.util.Date;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "BankAccount")
@@ -12,7 +12,6 @@ import java.util.Date;
 @DiscriminatorColumn(name = "type")
 @SuppressWarnings("SerializableInterface")
 public abstract class BankAccount {
-
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "bid", nullable=false)
@@ -20,9 +19,11 @@ public abstract class BankAccount {
     @Column(name = "pin", nullable=false)
     protected int pin;
     @Column(name = "lastWithdrawal")
-    protected int lastWithdrawal;
+    @Temporal(TemporalType.DATE)
+    protected Calendar lastWithdrawal;
     @Column(name = "lastDeposit")
-    protected int lastDeposit;
+    @Temporal(TemporalType.DATE)
+    protected Calendar lastDeposit;
     @Column(name = "balance", nullable=false)
     protected double balance;
     @Column(name = "interestRate")
@@ -40,7 +41,7 @@ public abstract class BankAccount {
 
     }
 
-    public BankAccount(int lastWithdrawal, int lastDeposit, double balance, double interestRate) {
+    public BankAccount(Calendar lastWithdrawal, Calendar lastDeposit, double balance, double interestRate) {
         this.bid = getLastID() + 1;
         this.lastWithdrawal = lastWithdrawal;
         this.lastDeposit = lastDeposit;
@@ -92,7 +93,7 @@ public abstract class BankAccount {
 
     @Override
     public String toString() {
-        return "\nAccount ID: " + bid + "\nLast Withdrawal: " + lastWithdrawal + "\nLast Deposit: " + lastDeposit + "\nBalance: " + balance + "\nInterest Rate: " + interestRate;
+        return "\nAccount ID: " + bid + "\nLast Withdrawal: " + lastWithdrawal.getTime() + "\nLast Deposit: " + lastDeposit.getTime() + "\nBalance: " + balance + "\nInterest Rate: " + interestRate;
     }
 
     public abstract void withdraw(double amount);
