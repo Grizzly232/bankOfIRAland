@@ -7,24 +7,27 @@ import javax.persistence.*;
 @SuppressWarnings("SerializableClass")
 public class CurrentAccount extends BankAccount {
     
-    double interestRate;
+    public CurrentAccount() {
+        
+    }
     
-    public CurrentAccount(int bid, int lastWithdrawal, int lastDeposit, double balance,int monthlyTransactions,double interestRate) {
-        super(bid,lastWithdrawal,lastDeposit,balance);
-        this.interestRate=interestRate;
+    public CurrentAccount(int lastWithdrawal, int lastDeposit, double balance, double interestRate) {
+        super(lastWithdrawal, lastDeposit, balance, interestRate);
+        addAccount(this);
     }
-    public double getBalance(){
-        return balance;
-    }
-    public void setBalance(double balance){
-        this.balance=balance;
-    }
+    
     @Override
-    public String toString(){
-        return super.toString()+"\nType: Current\nBalance: "+balance;
+    public void withdraw(double amount) {
+         balance -= amount;
     }
     
-   
+    @Override
+    public void deposit(double amount) {
     
+    }
     
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

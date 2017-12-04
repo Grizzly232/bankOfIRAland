@@ -1,74 +1,58 @@
 package model;
+
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name="Clients")
-@SuppressWarnings("SerializableInterface")
+@Table(name = "Client")
+@SuppressWarnings("SerializableClass")
 public class Client {
-    
-    @ManyToMany(mappedBy = "cList",cascade=CascadeType.PERSIST)
-    static private ArrayList<Client> cList = new ArrayList<>();
-    private String cid;
-    @Id
-    private String fname, lname, email, phone, address;
-    private int age;
-   
-    
 
-    public Client(String cid, String fname, String lname, String email, String phone, String address, int age) {
-        this.cid = cid;
+    @Id  @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "cid", nullable = false)
+    int cid;
+    @Column(name = "fname", nullable = false)
+    public String fname;
+    @Column(name = "lname", nullable = false)
+    public String lname;
+    @Column(name = "email")
+    public String email;
+    @Column(name = "phone")
+    public String phone;
+    @Column(name = "address", nullable = false)
+    public String address;
+    @Column(name = "age", nullable = false)
+    public String age;
+    @Transient
+    static ArrayList<Client> cList = new ArrayList();
+    
+    public Client() {
+    
+    }
+
+    public Client(String fname, String lname, String email, String phone, String address, String age) {
+        this.cid = getLastID() + 1;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.age = age;
+        addClient(this);
     }
 
-    public String getCid() {
-        return cid;
-    }
-
-    public String getFname() {
-        return fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-      public void addAccount(Client c) {
+    public void addClient(Client c) {
         if (!isDuplicate(c.getCid())) {
             cList.add(c);
         }
     }
-       public boolean isDuplicate(String id) {
-        for (Client c : cList) {
+
+    public int getLastID() {
+        return cList.size();
+    }
+
+    public boolean isDuplicate(int id) {
+        for(Client c : cList) {
             if (c.getCid() == id) {
                 return true;
             }
@@ -76,25 +60,75 @@ public class Client {
         return false;
     }
 
-    public void setLname(String lname) {
+    public int getCid() {
+        return cid;
+    }
+
+    public String getfname() {
+        return fname;
+    }
+
+    public String getlname() {
+        return lname;
+    }
+
+    public String getemail() {
+        return email;
+    }
+
+    public String getphone() {
+        return phone;
+    }
+
+    public String getaddress() {
+        return address;
+    }
+
+    public String getage() {
+        return age;
+    }
+
+    public void setcid(int cid) {
+        this.cid = cid;
+    }
+
+    public void setfname(String fname) {
+        this.fname = fname;
+    }
+
+    public void setlname(String lname) {
         this.lname = lname;
     }
 
-    public void setEmail(String email) {
+    public void setemail(String email) {
         this.email = email;
     }
 
-    public void setPhone(String phone) {
+    public void setphone(String phone) {
         this.phone = phone;
     }
 
-    public void setAddress(String address) {
+    public void setaddress(String address) {
         this.address = address;
     }
 
-    public void setAge(int age) {
+    public void setage(String age) {
         this.age = age;
     }
+
+    public static void printCList() {
+        for(Client c : cList) {
+            System.out.printf("------------------------------%n"
+                    + "Client %d, %s %s%n"
+                    + "------------------------------", c.getCid(), c.getfname(), c.getlname());
+            System.out.println(c.toString());
+        }
+    }
+    
+    public String toString() {
+        return "\nClient ID: " + cid + "\nName: " + fname + " " + lname + "\nEmail: " + email + "\nPhone: " + phone + "\nAddress: " + address + "\nAge: " + age;
+    }
+    
     static public ArrayList<Client> getClist(){
         return cList;
     }    
