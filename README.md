@@ -1,12 +1,10 @@
-# bankOfIRAland
-
-## we wuz finna be software developes
+# bankOfIreland
 
 ##WHAT ELSE NEEDS TO BE DONE
 
 -randomly generating ids for security
 
--table relationship mappings (many to many shit)
+-table relationship mappings (many to many)
 
 ~~-bank account arraylist that updates every time a new bank account is added~~
 
@@ -20,8 +18,8 @@
 
 ~~-dbOperations methods that add new records~~
 
--some big fancy drop tables method for admins
+-some drop tables method for admins
 
 -test class menus that use case switches
 
--associative table with orphan deletion an' all
+-associative table with orphan deletion
